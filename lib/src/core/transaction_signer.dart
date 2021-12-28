@@ -75,16 +75,13 @@ Future<_SigningInput> _fillMissingData({
   );
 }
 
-Future<Uint8List> _signTransaction(
-    Transaction transaction, Credentials c, int? chainId) async {
-  final innerSignature =
-      chainId == null ? null : MsgSignature(BigInt.zero, BigInt.zero, chainId);
-
-  final encoded =
-      uint8ListFromList(rlp.encode(_encodeToRlp(transaction, innerSignature)));
+Future<Uint8List> _signTransaction(Transaction transaction, Credentials c,
+    int? chainId, TransactionType type) async {
+  final encoded = await _encodeToRlpForSignature(type, transaction, chainId, c);
+  print(hex.encode(encoded));
   final signature = await c.signToSignature(encoded, chainId: chainId);
 
-  return uint8ListFromList(rlp.encode(_encodeToRlp(transaction, signature)));
+  return _encodeToRlpForTransaction(type, transaction, c, [signature]);
 }
 
 List<dynamic> _encodeToRlp(Transaction transaction, MsgSignature? signature) {

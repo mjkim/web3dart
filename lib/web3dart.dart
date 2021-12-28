@@ -4,6 +4,7 @@ import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:collection/collection.dart';
+import 'package:convert/convert.dart';
 import 'package:http/http.dart';
 import 'package:json_rpc_2/json_rpc_2.dart' as rpc;
 import 'package:meta/meta.dart';
@@ -32,3 +33,4 @@ part 'src/core/filters.dart';
 part 'src/core/transaction.dart';
 part 'src/core/transaction_information.dart';
 part 'src/core/transaction_signer.dart';
+part 'src/core/klaytn_signer.dart';
